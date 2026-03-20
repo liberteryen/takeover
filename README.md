@@ -1,5 +1,9 @@
 with alpine
-
+```bash
+mkdir /takeover
+mount -t tmpfs tmpfs /takeover
+mv takeover/* /takeover
+```
 ```bash
 cat /proc/mounts | grep /old_root | awk '{print $2}' | sort -r | while read m; do
   umount -lf "$m"
