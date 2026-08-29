@@ -5,6 +5,13 @@ mount -t tmpfs tmpfs /takeover
 mv takeover/* /takeover
 ```
 ```bash
+umount -l /old_root
+echo 1 > /sys/block/sdb/device/delete
+for host in /sys/class/scsi_host/host*/scan; do echo "- - -" > $host; done
+```
+
+
+```bash
 cat /proc/mounts | grep /old_root | awk '{print $2}' | sort -r | while read m; do
   umount -lf "$m"
 done
