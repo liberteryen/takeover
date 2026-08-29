@@ -8,6 +8,13 @@ mv takeover/* /takeover
 umount -l /old_root
 echo 1 > /sys/block/sdb/device/delete
 for host in /sys/class/scsi_host/host*/scan; do echo "- - -" > $host; done
+
+parted -s /dev/sdb mklabel msdos
+
+parted -s /dev/sdb mkpart primary ext4 1MiB 100%
+
+parted -s /dev/sdb set 1 boot on
+
 ```
 
 
